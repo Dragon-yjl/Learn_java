@@ -1,4 +1,4 @@
-package LinkedList6_22;
+package LinkedList622;
 
 
 import com.sun.org.apache.bcel.internal.generic.RETURN;
@@ -13,7 +13,7 @@ class Node {
         this.data = data;
     }
 }
-public class MyLinkedList {
+public class MyLinkedList1 {
 
     public Node head;//头结点
 
@@ -73,7 +73,7 @@ public class MyLinkedList {
     }
 
 
-    public Node  findKthToTail(int k) {
+    public Node findKthToTail(int k) {
 
         if(k<=0) {
             System.out.println("你输入K值有误");
@@ -101,5 +101,53 @@ public class MyLinkedList {
         }
 
         return slow;
+    }
+
+    /**
+     * 给一个数据，比这个数据小的放在链表前面，大的放在链表后面
+     * @return 返回新链表的头结点
+     */
+    public Node partition(int x) {
+
+        Node bs = null;//前面半部分链表的头结点
+        Node be = null;//前面半部分链表的尾结点
+
+        Node as = null;//后面半部分的头结点
+        Node ae = null;//后面半部分的尾结点
+
+        Node cur = this.head;
+
+        while (cur != null) {
+            if(cur.data < x) {
+
+                if(bs == null) {
+                    bs = cur;
+                    be = bs;
+                }else {//尾插法
+                    be.next = cur;
+                    be = cur;
+                }
+            }else {
+                if(as == null) {
+                    as = cur;
+                    ae = as;
+                }else {
+                    ae.next = cur;
+                    ae = cur;
+                }
+
+            }
+
+            cur = cur.next;
+        }
+
+        if(bs == null) {
+            return this.head = as;
+        }
+        be.next = as;
+        if(as != null) {
+            ae.next = null;
+        }
+        return this.head = bs;
     }
 }
